@@ -1,5 +1,9 @@
 ### React Assignment Module 7
 
+To run the employee management application:
+`run npm watch`
+`run npm start`
+
 1. In this assignment your job will be to add a confirmation modal to the delete button in the table. Up to this point, you've used the React Bootstrap Button component to add a red button to each row in the table. When the button is clicked, the employee for that row is deleted. However, there is no feedback / confirmation given to the user that this operation is about to take place. What if the user clicked this button by accident? A delete confirmation modal when the button is clicked that gives the user the option to proceed with the delete operation or cancel the delete operation is ideal here. You will use the React Bootstrap Modal component here to complete this assignment. When the button is clicked, here's what the modal should look like:
 
 Clicking the 'Yes' button will proceed with deleting the employee and the Modal will hide. Clicking the 'Cancel' button will not delete the employee and the Modal will hide.
