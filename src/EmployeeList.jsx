@@ -1,5 +1,5 @@
 import React from 'react';
-import { Badge, Button, Table, Card } from 'react-bootstrap';
+import { Badge, Button, Table, Card, Container, Row, Col, Modal } from 'react-bootstrap';
 import { useLocation, Link } from 'react-router-dom';
 import EmployeeFilter from './EmployeeFilter.jsx';
 import EmployeeAdd from './EmployeeAdd.jsx';
@@ -44,29 +44,55 @@ function EmployeeTable(props) {
   );
 }
 
-function EmployeeRow(props) {
-  function onDeleteClick() {
-    props.deleteEmployee(props.employee._id);
-  }
-  return (
-    <tr>
-      <td>
-        <Link to={`/edit/${props.employee._id}`}>{props.employee.name}</Link>
-      </td>
-      <td>{props.employee.extension}</td>
-      <td>{props.employee.email}</td>
-      <td>{props.employee.title}</td>
-      <td>{props.employee.dateHired.toDateString()}</td>
-      <td>{props.employee.currentlyEmployed ? 'Yes' : 'No'}</td>
-      <td>
-        <Button variant='danger' size='sm' onClick={onDeleteClick}>
-          X
-        </Button>
-      </td>
-    </tr>
-  );
-}
+export class EmployeeRow extends React.Component {
+  // function onDeleteClick() {
+  //   props.deleteEmployee(props.employee._id);
+  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      employee: [],
+      modalVisible: false,
+    };
 
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
+  }
+
+  // componentDidMount() {
+  //   const employee = this.props.employees;
+  // }
+
+  toggleModal() {
+    this.setState({ toggleModal: !this.state.modalVisible });
+  }
+
+  handleSubmit() {}
+
+  render() {
+    return (
+      <>
+        <tr>
+          <td>
+            <Link to={`/edit/${this.props.employee._id}`}>{this.props.employee.name}</Link>
+          </td>
+          <td>{this.props.employee.extension}</td>
+          <td>{this.props.employee.email}</td>
+          <td>{this.props.employee.title}</td>
+          <td>{this.props.employee.dateHired.toDateString()}</td>
+          <td>{this.props.employee.currentlyEmployed ? 'Yes' : 'No'}</td>
+          <td>
+            <Button variant='danger' size='sm' onClick={this.toggleModal}>
+              X
+            </Button>
+            <Modal show={this.state.modalVisible} onHide={this.toggleModal} centered></Modal>
+          </td>
+        </tr>
+      </>
+    );
+  }
+}
+//onDeleteClick this was on button for onClick
 export default class EmployeeList extends React.Component {
   constructor() {
     super();
