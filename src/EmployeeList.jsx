@@ -1,5 +1,5 @@
 import React from 'react';
-import { Badge, Button, Table, Card, Container, Row, Col, Modal } from 'react-bootstrap';
+import { Badge, Button, Table, Card, Container, Modal } from 'react-bootstrap';
 import { useLocation, Link } from 'react-router-dom';
 import EmployeeFilter from './EmployeeFilter.jsx';
 import EmployeeAdd from './EmployeeAdd.jsx';
@@ -45,29 +45,25 @@ function EmployeeTable(props) {
 }
 
 export class EmployeeRow extends React.Component {
-  // function onDeleteClick() {
-  //   props.deleteEmployee(props.employee._id);
-  // }
+  // PASS STATE AS PROPS
   constructor(props) {
     super(props);
     this.state = {
-      employee: [],
       modalVisible: false,
     };
-
     this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
   }
 
-  // componentDidMount() {
-  //   const employee = this.props.employees;
-  // }
-
+  // CREATE TOGGLE FOR SHOW AND HIDE MODAL
   toggleModal() {
-    this.setState({ toggleModal: !this.state.modalVisible });
+    this.setState({ modalVisible: !this.state.modalVisible });
   }
 
-  handleSubmit() {}
+  // DELETE EMPLOYEE ON CLICK EVENT
+  handleSubmit() {
+    this.props.deleteEmployee(this.props.employee._id);
+  }
 
   render() {
     return (
@@ -85,7 +81,25 @@ export class EmployeeRow extends React.Component {
             <Button variant='danger' size='sm' onClick={this.toggleModal}>
               X
             </Button>
-            <Modal show={this.state.modalVisible} onHide={this.toggleModal} centered></Modal>
+            <Modal show={this.state.modalVisible} onHide={this.toggleModal} centered>
+              <Modal.Header closeButton>
+                <Modal.Title>Delete Employee?</Modal.Title>
+              </Modal.Header>
+
+              <Modal.Body>
+                <Container fluid>
+                  <p>Are you sure you want to delete this employee?</p>
+                </Container>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button type='submit' variant='danger' size='lg' className='mt-4' onClick={this.toggleModal}>
+                  Cancel
+                </Button>
+                <Button type='submit' variant='success' size='lg' className='mt-4' onClick={this.handleSubmit}>
+                  Yes
+                </Button>
+              </Modal.Footer>
+            </Modal>
           </td>
         </tr>
       </>
